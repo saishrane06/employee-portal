@@ -1,30 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}
+Dashboard
+{% endblock %}
+
 {% block content %}
 
 <div class="dashboard">
 
-<h1>
+    <h1>Welcome {{ username }}</h1>
 
-Welcome {{ username }}
+    <p>You are successfully logged in.</p>
 
-</h1>
+    <br>
 
-<p>
+    <a href="{{ url_for('employee.employee_list') }}">
+        <button class="btn-primary">
+            Employee Management
+        </button>
+    </a>
 
-You are successfully logged in.
+    <br><br>
 
-</p>
-
-<br>
-
-<a href="/logout">
-
-<button class="btn-primary">
-
-Logout
-
-</button>
-
-</a>
+    <a href="{{ url_for('auth.logout') }}">
+        <button class="btn-danger">
+            Logout
+        </button>
+    </a>
 
 </div>
 

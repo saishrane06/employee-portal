@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}
+Employee Management
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Employee Management</h1>
+
+    <p>Manage employee records.</p>
+
+    <br>
+
+    <a href="#">
+        <button class="btn-primary">
+            + Add Employee
+        </button>
+    </a>
+
+    <br><br>
+
+    <table class="employee-table">
+
+        <thead>
+
+            <tr>
+
+                <th>Employee ID</th>
+
+                <th>Name</th>
+
+                <th>Department</th>
+
+                <th>Designation</th>
+
+                <th>Status</th>
+
+                <th>Actions</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% if employees %}
+
+            {% for emp in employees %}
+
+            <tr>
+
+                <td>{{ emp["employee_id"] }}</td>
+
+                <td>{{ emp["first_name"] }} {{ emp["last_name"] }}</td>
+
+                <td>{{ emp["department"] }}</td>
+
+                <td>{{ emp["designation"] }}</td>
+
+                <td>{{ emp["status"] }}</td>
+
+                <td>
+
+                    <button class="btn-edit">
+                        Edit
+                    </button>
+
+                    <button class="btn-danger">
+                        Delete
+                    </button>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        {% else %}
+
+            <tr>
+
+                <td colspan="6" style="text-align:center;">
+                    No employees found.
+                </td>
+
+            </tr>
+
+        {% endif %}
+
+        </tbody>
+
+    </table>
+
+    <br>
+
+    <a href="{{ url_for('auth.dashboard') }}">
+        <button class="btn-secondary">
+            Back to Dashboard
+        </button>
+    </a>
+
+</div>
+
+{% endblock %}
