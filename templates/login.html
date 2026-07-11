@@ -1,45 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
+{% block title %}
+Login
+{% endblock %}
 
-<meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Login</title>
-
-<link rel="stylesheet"
-href="{{ url_for('static', filename='style.css') }}">
-
-</head>
-
-<body>
-
-<header>
-
-<nav class="navbar">
-
-<div class="logo">
-
-🚀 Employee Portal
-
-</div>
-
-<ul class="nav-links">
-
-<li><a href="/">Home</a></li>
-
-<li><a href="/login">Login</a></li>
-
-<li><a href="/dashboard">Dashboard</a></li>
-
-</ul>
-
-</nav>
-
-</header>
+{% block content %}
 
 <div class="login-container">
 
@@ -55,8 +20,7 @@ placeholder="Username">
 type="password"
 placeholder="Password">
 
-<button
-class="btn-primary">
+<button class="btn-primary">
 
 Login
 
@@ -66,12 +30,4 @@ Login
 
 </div>
 
-<footer>
-
-© 2026 Employee Portal
-
-</footer>
-
-</body>
-
-</html>
+{% endblock %}
