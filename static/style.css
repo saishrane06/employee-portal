@@ -386,3 +386,9 @@ form button{
 margin-top:20px;
 
 }
+
+.employee-table form {
+    display: inline;
+    margin: 0;
+    padding: 0;
+}

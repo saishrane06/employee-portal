@@ -205,3 +205,33 @@ def edit_employee(id):
         "edit_employee.html",
         employee=employee_data
     )
+
+@employee.route("/delete/<int:id>", methods=["POST"])
+def delete_employee(id):
+
+    if "user" not in session:
+        return redirect(url_for("auth.login"))
+
+    employee_data = Employee.get_by_id(id)
+
+    if not employee_data:
+
+        flash(
+            "Employee not found",
+            "danger"
+        )
+
+        return redirect(
+            url_for("employee.employee_list")
+        )
+
+    Employee.delete(id)
+
+    flash(
+        f"Employee '{employee_data['first_name']} {employee_data['last_name']}' deleted successfully.",
+        "success"
+    )
+
+    return redirect(
+        url_for("employee.employee_list")
+    )
