@@ -1,21 +1,23 @@
 # Changelog
 
-## v1.1.0
+## [v1.1.0] - 2026-07-11
 
 ### Added
 
 - Flask Blueprints
-- Session-based Authentication
-- SQLite User Database
-- Password Hashing
+- Session Authentication
+- SQLite Database
+- User Login
+- Logout
 - Flash Messages
+- Password Hashing
 - Application Logging
 
 ### Changed
 
-- Refactored authentication logic
-- Centralized configuration using .env
+- Refactored authentication into Blueprints
+- Moved database logic to model layer
 
 ### Security
 
-- Passwords are now securely hashed using Werkzeug
+- Passwords are stored using Werkzeug hashing
