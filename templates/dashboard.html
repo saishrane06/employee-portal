@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
 <title>Dashboard</title>
 
@@ -12,13 +17,69 @@ href="{{ url_for('static', filename='style.css') }}">
 
 <body>
 
-<div class="container">
+<header>
+
+<nav class="navbar">
+
+<div class="logo">
+
+🚀 Employee Portal
+
+</div>
+
+<ul class="nav-links">
+
+<li><a href="/">Home</a></li>
+
+<li><a href="/login">Login</a></li>
+
+<li><a href="/dashboard">Dashboard</a></li>
+
+</ul>
+
+</nav>
+
+</header>
+
+<div class="dashboard">
 
 <h1>Dashboard</h1>
 
-<p>Welcome Admin.</p>
+<div class="cards">
+
+<div class="card">
+
+<h3>Total Employees</h3>
+
+<p>125</p>
 
 </div>
+
+<div class="card">
+
+<h3>Departments</h3>
+
+<p>8</p>
+
+</div>
+
+<div class="card">
+
+<h3>Active Users</h3>
+
+<p>102</p>
+
+</div>
+
+</div>
+
+</div>
+
+<footer>
+
+© 2026 Employee Portal
+
+</footer>
 
 </body>
 

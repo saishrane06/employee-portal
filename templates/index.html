@@ -1,28 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Employee Portal</title>
 
     <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
+        href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
 <body>
 
-<div class="container">
+<header>
 
-<h1>Employee Portal</h1>
+    <nav class="navbar">
 
-<p>Welcome to our Flask Application.</p>
+        <div class="logo">
 
-<a href="/login">
-<button>Login</button>
-</a>
+            🚀 Employee Portal
 
-</div>
+        </div>
+
+        <ul class="nav-links">
+
+            <li><a href="/">Home</a></li>
+
+            <li><a href="/login">Login</a></li>
+
+            <li><a href="/dashboard">Dashboard</a></li>
+
+        </ul>
+
+    </nav>
+
+</header>
+
+
+<section class="hero">
+
+    <h1>Welcome to Employee Portal</h1>
+
+    <p>
+        Infrastructure Automation | DevOps | Flask | Docker Learning Project
+    </p>
+
+    <a href="/login">
+
+        <button class="btn-primary">
+            Get Started
+        </button>
+
+    </a>
+
+</section>
+
+
+<footer>
+
+    © 2026 Employee Portal | Built with Flask ❤️
+
+</footer>
 
 </body>
 
