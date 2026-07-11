@@ -11,7 +11,7 @@ from flask import (
 from werkzeug.security import check_password_hash
 
 from models.user_model import User
-
+import logging
 auth = Blueprint("auth", __name__)
 
 
@@ -40,7 +40,7 @@ def login():
             ):
 
                 session["user"] = username
-
+                logging.info(f"User '{username}' logged in successfully.")
                 flash(
                     "Login Successful",
                     "success"
@@ -50,6 +50,9 @@ def login():
                     url_for("auth.dashboard")
                 )
 
+        logging.warning(
+            f"Failed login attempt for username '{username}'"
+        )
         flash(
             "Invalid Username or Password",
             "danger"
@@ -60,7 +63,9 @@ def login():
 
 @auth.route("/dashboard")
 def dashboard():
-
+    logging.info(
+        f"Dashboard accessed by '{session['user']}'"
+    )
     if "user" not in session:
 
         flash(
@@ -80,7 +85,9 @@ def dashboard():
 
 @auth.route("/logout")
 def logout():
-
+    logging.info(
+        f"User '{session['user']}' logged out."
+    )
     session.clear()
 
     flash(

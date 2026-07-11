@@ -14,3 +14,5 @@ class Config:
         "database",
         os.getenv("DATABASE_NAME")
     )
+
+    LOG_FILE = "logs/app.log"

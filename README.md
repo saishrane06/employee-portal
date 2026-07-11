@@ -93,5 +93,25 @@ http://127.0.0.1:5000
 
 ---
 
+## Features
+
+- User Authentication
+- Password Hashing
+- Session Management
+- Flash Messages
+- Application Logging
+- Responsive UI
+
+## Technologies Used
+
+- Python
+- Flask
+- SQLite
+- HTML5
+- CSS3
+- Jinja2
+
+---
+
 ## Author
 Saish Rane
