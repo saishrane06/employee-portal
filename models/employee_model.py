@@ -267,3 +267,23 @@ class Employee:
         connection.close()
 
         return employee
+    
+    @staticmethod
+    def email_exists_for_other(email, employee_id):
+
+        connection = get_db_connection()
+
+        cursor = connection.cursor()
+
+        cursor.execute("""
+            SELECT *
+            FROM employees
+            WHERE email = ?
+            AND id != ?
+        """, (email, employee_id))
+
+        employee = cursor.fetchone()
+
+        connection.close()
+
+        return employee

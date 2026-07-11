@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block title %}
+Edit Employee
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+<h1>Edit Employee</h1>
+
+<form method="POST">
+
+<label>Employee ID</label>
+<input type="text"
+value="{{ employee['employee_id'] }}"
+disabled>
+
+<label>First Name</label>
+<input
+type="text"
+name="first_name"
+value="{{ employee['first_name'] }}"
+required>
+
+<label>Last Name</label>
+<input
+type="text"
+name="last_name"
+value="{{ employee['last_name'] }}"
+required>
+
+<label>Email</label>
+<input
+type="email"
+name="email"
+value="{{ employee['email'] }}"
+required>
+
+<label>Phone</label>
+<input
+type="text"
+name="phone"
+value="{{ employee['phone'] }}">
+
+<label>Department</label>
+
+<select name="department">
+
+<option value="IT"
+{% if employee['department']=="IT" %}selected{% endif %}>
+IT
+</option>
+
+<option value="HR"
+{% if employee['department']=="HR" %}selected{% endif %}>
+HR
+</option>
+
+<option value="Finance"
+{% if employee['department']=="Finance" %}selected{% endif %}>
+Finance
+</option>
+
+<option value="Support"
+{% if employee['department']=="Support" %}selected{% endif %}>
+Support
+</option>
+
+</select>
+
+<label>Designation</label>
+
+<input
+type="text"
+name="designation"
+value="{{ employee['designation'] }}"
+required>
+
+<label>Salary</label>
+
+<input
+type="number"
+name="salary"
+value="{{ employee['salary'] }}">
+
+<label>Joining Date</label>
+
+<input
+type="date"
+name="joining_date"
+value="{{ employee['joining_date'] }}">
+
+<label>Status</label>
+
+<select name="status">
+
+<option value="Active"
+{% if employee['status']=="Active" %}selected{% endif %}>
+Active
+</option>
+
+<option value="Inactive"
+{% if employee['status']=="Inactive" %}selected{% endif %}>
+Inactive
+</option>
+
+</select>
+
+<br><br>
+
+<button
+class="btn-primary"
+type="submit">
+
+Update Employee
+
+</button>
+
+<a href="{{ url_for('employee.employee_list') }}">
+
+<button
+type="button"
+class="btn-secondary">
+
+Cancel
+
+</button>
+
+</a>
+
+</form>
+
+</div>
+
+{% endblock %}

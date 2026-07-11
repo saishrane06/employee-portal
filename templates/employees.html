@@ -64,9 +64,11 @@ Employee Management
 
                 <td>
 
-                    <button class="btn-edit">
-                        Edit
-                    </button>
+                    <a href="{{ url_for('employee.edit_employee', id=emp['id']) }}">
+                        <button class="btn-edit">
+                            Edit
+                        </button>
+                    </a>
 
                     <button class="btn-danger">
                         Delete

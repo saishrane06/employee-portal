@@ -130,3 +130,78 @@ def add_employee():
 
     )
 
+@employee.route("/edit/<int:id>", methods=["GET", "POST"])
+def edit_employee(id):
+
+    if "user" not in session:
+        return redirect(url_for("auth.login"))
+
+    employee_data = Employee.get_by_id(id)
+
+    if not employee_data:
+        flash("Employee not found", "danger")
+        return redirect(url_for("employee.employee_list"))
+
+    if request.method == "POST":
+
+        first_name = request.form["first_name"]
+        last_name = request.form["last_name"]
+        email = request.form["email"]
+        phone = request.form["phone"]
+        department = request.form["department"]
+        designation = request.form["designation"]
+        salary = request.form["salary"]
+        joining_date = request.form["joining_date"]
+        status = request.form["status"]
+
+        if Employee.email_exists_for_other(email, id):
+
+            flash(
+                "Email already exists",
+                "danger"
+            )
+
+            return redirect(
+                url_for(
+                    "employee.edit_employee",
+                    id=id
+                )
+            )
+
+        Employee.update(
+
+            id,
+
+            first_name,
+
+            last_name,
+
+            email,
+
+            phone,
+
+            department,
+
+            designation,
+
+            salary,
+
+            joining_date,
+
+            status
+
+        )
+
+        flash(
+            "Employee updated successfully",
+            "success"
+        )
+
+        return redirect(
+            url_for("employee.employee_list")
+        )
+
+    return render_template(
+        "edit_employee.html",
+        employee=employee_data
+    )
