@@ -1,42 +1,30 @@
-{% extends "base.html" %}
-
-{% block title %}
-Dashboard
-{% endblock %}
-
 {% block content %}
 
 <div class="dashboard">
 
-<h1>Dashboard</h1>
+<h1>
 
-<div class="cards">
+Welcome {{ username }}
 
-<div class="card">
+</h1>
 
-<h3>Total Employees</h3>
+<p>
 
-<p>125</p>
+You are successfully logged in.
 
-</div>
+</p>
 
-<div class="card">
+<br>
 
-<h3>Departments</h3>
+<a href="/logout">
 
-<p>8</p>
+<button class="btn-primary">
 
-</div>
+Logout
 
-<div class="card">
+</button>
 
-<h3>Active Users</h3>
-
-<p>102</p>
-
-</div>
-
-</div>
+</a>
 
 </div>
 
