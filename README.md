@@ -1,60 +1,102 @@
 # Employee Management System
 
-## Overview
+A production-style Employee Management System built with Flask while following Agile development practices, Git workflows, and DevOps principles.
 
-A Flask-based Employee Management System built following production development practices.
+---
 
 ## Features
 
-- Secure Authentication
+### Authentication
+- Login
+- Logout
 - Session Management
-- SQLite Database
 - Password Hashing
+
+### Employee Management
+- View Employees
+- Add Employee
+- Edit Employee
+- Delete Employee
+- Search Employee
+
+### Other Features
 - Flash Messages
 - Logging
-- Flask Blueprints
+- SQLite Database
+- MVC Architecture
+- Blueprints
+
+---
 
 ## Tech Stack
 
-- Python
-- Flask
-- SQLite
-- HTML
-- CSS
-- Jinja2
+| Technology | Version |
+|------------|----------|
+| Python | 3.x |
+| Flask | Latest |
+| SQLite | Built-in |
+| HTML5 | ✓ |
+| CSS3 | ✓ |
+| Jinja2 | ✓ |
+| Git | ✓ |
+
+---
+
+## Project Architecture
+
+(Add architecture image here)
+
+---
 
 ## Folder Structure
 
-(Add tree)
+(Add folder tree)
 
-## Architecture
-
-(Add architecture image)
+---
 
 ## Screenshots
 
-(Add screenshots)
+### Dashboard
 
-## Sprint Progress
+(Add Screenshot)
 
-### Sprint 1 ✅
+### Employee List
 
-- Authentication
-- Logging
-- Configuration
+(Add Screenshot)
 
-### Sprint 2
+### Add Employee
 
-Employee CRUD
+(Add Screenshot)
 
-### Sprint 3
+### Edit Employee
 
-Docker
+(Add Screenshot)
 
-### Sprint 4
+### Search Employee
 
-CI/CD
+(Add Screenshot)
 
-### Sprint 5
+---
 
-Kubernetes
+## Releases
+
+v1.1.0
+
+Authentication Module
+
+v1.2.0
+
+Employee CRUD Module
+
+---
+
+## Upcoming Features
+
+- Docker
+- Docker Compose
+- Jenkins
+- GitHub Actions
+- Kubernetes
+- Terraform
+- Prometheus
+- Grafana

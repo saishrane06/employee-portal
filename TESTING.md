@@ -1,17 +1,35 @@
-# Sprint 1 Test Report
+# Sprint 2 Test Report
 
 ## Authentication
 
-| Test Case | Status |
-|-----------|--------|
-| Valid Login | ✅ Pass |
-| Invalid Username | ✅ Pass |
-| Invalid Password | ✅ Pass |
-| Logout | ✅ Pass |
-| Session Protection | ✅ Pass |
-| Flash Messages | ✅ Pass |
-| Logging | ✅ Pass |
+| Test | Status |
+|------|--------|
+| Login | PASS |
+| Logout | PASS |
+| Session | PASS |
+
+---
+
+## Employee CRUD
+
+| Test | Status |
+|------|--------|
+| Add Employee | PASS |
+| Edit Employee | PASS |
+| Delete Employee | PASS |
+| Search Employee | PASS |
+
+---
+
+## Validation
+
+| Test | Status |
+|------|--------|
+| Duplicate Email | PASS |
+| Required Fields | PASS |
+
+---
 
 Result
 
-All authentication tests passed successfully.
+All tests passed successfully.

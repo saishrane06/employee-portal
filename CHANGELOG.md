@@ -1,23 +1,29 @@
 # Changelog
 
-## [v1.1.0] - 2026-07-11
+## [v1.2.0] - July 2026
 
 ### Added
 
-- Flask Blueprints
-- Session Authentication
-- SQLite Database
-- User Login
-- Logout
-- Flash Messages
-- Password Hashing
-- Application Logging
+- Employee CRUD
+- Employee Search
+- Employee Validation
+- Employee Model
+- Employee Routes
+- Employee Templates
 
-### Changed
+### Improved
 
-- Refactored authentication into Blueprints
-- Moved database logic to model layer
+- Better UI
+- Navigation
+- Dashboard
 
-### Security
+### Fixed
 
-- Passwords are stored using Werkzeug hashing
+- Duplicate email validation
+- Form validation
+
+---
+
+## [v1.1.0]
+
+Authentication Module
