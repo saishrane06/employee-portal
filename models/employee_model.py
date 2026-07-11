@@ -287,3 +287,37 @@ class Employee:
         connection.close()
 
         return employee
+    
+    @staticmethod
+    def search(search_term):
+
+        connection = get_db_connection()
+
+        cursor = connection.cursor()
+
+        query = f"%{search_term}%"
+
+        cursor.execute("""
+            SELECT *
+            FROM employees
+            WHERE employee_id LIKE ?
+            OR first_name LIKE ?
+            OR last_name LIKE ?
+            OR email LIKE ?
+            OR department LIKE ?
+            OR designation LIKE ?
+            ORDER BY employee_id
+        """, (
+            query,
+            query,
+            query,
+            query,
+            query,
+            query
+        ))
+
+        employees = cursor.fetchall()
+
+        connection.close()
+
+        return employees

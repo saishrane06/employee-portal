@@ -22,6 +22,41 @@ Employee Management
 
     <br><br>
 
+    <form
+        method="GET"
+        action="{{ url_for('employee.employee_list') }}"
+        class="search-form">
+
+        <input
+            type="text"
+            name="search"
+            placeholder="Search employee..."
+            value="{{ search if search else '' }}">
+
+        <button
+            class="btn-primary"
+            type="submit">
+
+            Search
+
+        </button>
+
+        <a href="{{ url_for('employee.employee_list') }}">
+
+            <button
+                class="btn-secondary"
+                type="button">
+
+                Reset
+
+            </button>
+
+        </a>
+
+    </form>
+
+    <br>
+
     <table class="employee-table">
 
         <thead>
@@ -97,7 +132,15 @@ Employee Management
             <tr>
 
                 <td colspan="6" style="text-align:center;">
+                    {% if search %}
+
+                    No employees found for "{{ search }}"
+
+                    {% else %}
+
                     No employees found.
+
+                    {% endif %}
                 </td>
 
             </tr>

@@ -3,7 +3,9 @@ from flask import (
     render_template,
     session,
     redirect,
-    url_for
+    url_for,
+    request,
+    flash
 )
 
 from models.employee_model import Employee
@@ -30,14 +32,19 @@ def generate_employee_id():
 def employee_list():
 
     if "user" not in session:
-
         return redirect(url_for("auth.login"))
 
-    employees = Employee.get_all()
+    search = request.args.get("search")
+
+    if search:
+        employees = Employee.search(search)
+    else:
+        employees = Employee.get_all()
 
     return render_template(
         "employees.html",
-        employees=employees
+        employees=employees,
+        search=search
     )
 
 @employee.route("/add", methods=["GET","POST"])
