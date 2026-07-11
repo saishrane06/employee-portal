@@ -219,3 +219,51 @@ class Employee:
         connection.commit()
 
         connection.close()
+
+    @staticmethod
+    def get_last_employee():
+
+        connection = get_db_connection()
+
+        cursor = connection.cursor()
+
+        cursor.execute("""
+
+            SELECT employee_id
+
+            FROM employees
+
+            ORDER BY id DESC
+
+            LIMIT 1
+
+        """)
+
+        employee = cursor.fetchone()
+
+        connection.close()
+
+        return employee
+    
+    @staticmethod
+    def email_exists(email):
+
+        connection = get_db_connection()
+
+        cursor = connection.cursor()
+
+        cursor.execute("""
+
+            SELECT *
+
+            FROM employees
+
+            WHERE email=?
+
+        """,(email,))
+
+        employee = cursor.fetchone()
+
+        connection.close()
+
+        return employee

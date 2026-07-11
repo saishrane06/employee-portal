@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}
+Add Employee
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+<h1>Add Employee</h1>
+
+<form method="POST">
+
+<label>First Name</label>
+
+<input type="text"
+name="first_name"
+required>
+
+<label>Last Name</label>
+
+<input type="text"
+name="last_name"
+required>
+
+<label>Email</label>
+
+<input type="email"
+name="email"
+required>
+
+<label>Phone</label>
+
+<input type="text"
+name="phone">
+
+<label>Department</label>
+
+<select name="department">
+
+<option>IT</option>
+
+<option>HR</option>
+
+<option>Finance</option>
+
+<option>Support</option>
+
+</select>
+
+<label>Designation</label>
+
+<input type="text"
+name="designation"
+required>
+
+<label>Salary</label>
+
+<input type="number"
+name="salary">
+
+<label>Joining Date</label>
+
+<input
+type="date"
+name="joining_date">
+
+<label>Status</label>
+
+<select name="status">
+
+<option>Active</option>
+
+<option>Inactive</option>
+
+</select>
+
+<br><br>
+
+<button
+class="btn-primary"
+type="submit">
+
+Save Employee
+
+</button>
+
+<a href="{{ url_for('employee.employee_list') }}">
+
+<button
+type="button"
+class="btn-secondary">
+
+Cancel
+
+</button>
+
+</a>
+
+</form>
+
+</div>
+
+{% endblock %}

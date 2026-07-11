@@ -7,13 +7,24 @@ from flask import (
 )
 
 from models.employee_model import Employee
-
+from flask import request, flash
 employee = Blueprint(
     "employee",
     __name__,
     url_prefix="/employees"
 )
 
+def generate_employee_id():
+
+    employee = Employee.get_last_employee()
+
+    if employee:
+
+        last_id = int(employee["employee_id"][3:])
+
+        return f"EMP{last_id + 1:03d}"
+
+    return "EMP001"
 
 @employee.route("/")
 def employee_list():
@@ -28,3 +39,94 @@ def employee_list():
         "employees.html",
         employees=employees
     )
+
+@employee.route("/add", methods=["GET","POST"])
+
+def add_employee():
+
+    if "user" not in session:
+
+        return redirect(url_for("auth.login"))
+
+    if request.method == "POST":
+
+        employee_id = generate_employee_id()
+
+        first_name = request.form["first_name"]
+
+        last_name = request.form["last_name"]
+
+        email = request.form["email"]
+
+        phone = request.form["phone"]
+
+        department = request.form["department"]
+
+        designation = request.form["designation"]
+
+        salary = request.form["salary"]
+
+        joining_date = request.form["joining_date"]
+
+        status = request.form["status"]
+
+        if Employee.email_exists(email):
+
+            flash(
+
+                "Email already exists",
+
+                "danger"
+
+            )
+
+            return redirect(
+
+                url_for("employee.add_employee")
+
+            )
+
+        Employee.add(
+
+            employee_id,
+
+            first_name,
+
+            last_name,
+
+            email,
+
+            phone,
+
+            department,
+
+            designation,
+
+            salary,
+
+            joining_date,
+
+            status
+
+        )
+
+        flash(
+
+            "Employee added successfully",
+
+            "success"
+
+        )
+
+        return redirect(
+
+            url_for("employee.employee_list")
+
+        )
+
+    return render_template(
+
+        "add_employee.html"
+
+    )
+
