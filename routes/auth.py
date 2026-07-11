@@ -1,16 +1,18 @@
-import sqlite3
-
 from flask import (
     Blueprint,
     render_template,
     request,
     redirect,
-    session,
     url_for,
-    current_app
+    session,
+    flash
 )
 
-auth = Blueprint("auth",__name__)
+from werkzeug.security import check_password_hash
+
+from models.user_model import User
+
+auth = Blueprint("auth", __name__)
 
 
 @auth.route("/")
@@ -19,44 +21,38 @@ def home():
     return render_template("index.html")
 
 
-@auth.route("/login",methods=["GET","POST"])
+@auth.route("/login", methods=["GET", "POST"])
 def login():
 
-    if request.method=="POST":
+    if request.method == "POST":
 
-        username=request.form["username"]
+        username = request.form["username"]
 
-        password=request.form["password"]
+        password = request.form["password"]
 
-        connection=sqlite3.connect(
-            current_app.config["DATABASE"]
-        )
-
-        cursor=connection.cursor()
-
-        cursor.execute(
-            """
-            SELECT *
-            FROM users
-            WHERE username=?
-            AND password=?
-            """,
-            (username,password)
-        )
-
-        user=cursor.fetchone()
-
-        connection.close()
+        user = User.get_user(username)
 
         if user:
 
-            session["user"]=username
+            if check_password_hash(
+                user["password"],
+                password
+            ):
 
-            return redirect(url_for("auth.dashboard"))
+                session["user"] = username
 
-        return render_template(
-            "login.html",
-            error="Invalid Username or Password"
+                flash(
+                    "Login Successful",
+                    "success"
+                )
+
+                return redirect(
+                    url_for("auth.dashboard")
+                )
+
+        flash(
+            "Invalid Username or Password",
+            "danger"
         )
 
     return render_template("login.html")
@@ -67,7 +63,14 @@ def dashboard():
 
     if "user" not in session:
 
-        return redirect(url_for("auth.login"))
+        flash(
+            "Please login first",
+            "warning"
+        )
+
+        return redirect(
+            url_for("auth.login")
+        )
 
     return render_template(
         "dashboard.html",
@@ -80,4 +83,11 @@ def logout():
 
     session.clear()
 
-    return redirect(url_for("auth.login"))
+    flash(
+        "Logged out successfully",
+        "info"
+    )
+
+    return redirect(
+        url_for("auth.login")
+    )

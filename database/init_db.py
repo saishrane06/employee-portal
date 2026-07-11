@@ -1,4 +1,5 @@
 import sqlite3
+from werkzeug.security import generate_password_hash
 
 connection = sqlite3.connect("database/employee.db")
 
@@ -16,11 +17,13 @@ password TEXT NOT NULL
 )
 """)
 
+hashed_password = generate_password_hash("admin123")
+
 cursor.execute("""
 INSERT OR IGNORE INTO users(username,password)
 
-VALUES('admin','admin123')
-""")
+VALUES(?,?)
+""", ("admin", hashed_password))
 
 connection.commit()
 
