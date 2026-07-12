@@ -1,24 +1,28 @@
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-
 .git
 .gitignore
 
 .vscode
 
-venv/
-.env/
+venv
+
+.env
+
+__pycache__
+
+*.pyc
+
+*.pyo
 
 *.db-journal
 
-README.md
+*.log
 
-screenshots/
+screenshots
 
-docs/
+docs
 
-journal/
+journal
 
-architecture/
+architecture
+
+.idea
