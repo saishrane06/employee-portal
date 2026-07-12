@@ -23,6 +23,10 @@ RUN pip install --no-cache-dir -r requirements.txt
 # ---------------------------------------
 COPY . .
 
+ENV SECRET_KEY=docker-secret-key
+ENV DEBUG=True
+ENV DATABASE_NAME=employee.db
+
 # ---------------------------------------
 # Flask Environment Variables
 # ---------------------------------------
