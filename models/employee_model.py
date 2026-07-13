@@ -1,4 +1,4 @@
-from database.database import get_db_connection
+from database.db import get_connection
 
 
 class Employee:
@@ -6,42 +6,32 @@ class Employee:
     @staticmethod
     def get_all():
 
-        connection = get_db_connection()
+        with get_connection() as connection:
 
-        cursor = connection.cursor()
+            with connection.cursor() as cursor:
 
-        cursor.execute("""
-            SELECT *
-            FROM employees
-            ORDER BY employee_id
-        """)
+                cursor.execute("""
+                    SELECT *
+                    FROM employees
+                    ORDER BY employee_id
+                """)
 
-        employees = cursor.fetchall()
-
-        connection.close()
-
-        return employees
-
+                return cursor.fetchall()
 
     @staticmethod
     def get_by_id(employee_id):
 
-        connection = get_db_connection()
+        with get_connection() as connection:
 
-        cursor = connection.cursor()
+            with connection.cursor() as cursor:
 
-        cursor.execute("""
-            SELECT *
-            FROM employees
-            WHERE id = ?
-        """, (employee_id,))
+                cursor.execute("""
+                    SELECT *
+                    FROM employees
+                    WHERE id=%s
+                """, (employee_id,))
 
-        employee = cursor.fetchone()
-
-        connection.close()
-
-        return employee
-
+                return cursor.fetchone()
 
     @staticmethod
     def add(
@@ -57,267 +47,209 @@ class Employee:
         status
     ):
 
-        connection = get_db_connection()
+        with get_connection() as connection:
 
-        cursor = connection.cursor()
+            with connection.cursor() as cursor:
 
-        cursor.execute("""
-            INSERT INTO employees(
+                cursor.execute("""
+                    INSERT INTO employees(
 
-                employee_id,
+                        employee_id,
+                        first_name,
+                        last_name,
+                        email,
+                        phone,
+                        department,
+                        designation,
+                        salary,
+                        joining_date,
+                        status
 
-                first_name,
+                    )
 
-                last_name,
+                    VALUES(
+                        %s,%s,%s,%s,%s,%s,%s,%s,%s,%s
+                    )
+                """, (
 
-                email,
+                    employee_id,
+                    first_name,
+                    last_name,
+                    email,
+                    phone,
+                    department,
+                    designation,
+                    salary,
+                    joining_date,
+                    status
 
-                phone,
-
-                department,
-
-                designation,
-
-                salary,
-
-                joining_date,
-
-                status
-
-            )
-
-            VALUES(?,?,?,?,?,?,?,?,?,?)
-
-        """,(
-
-            employee_id,
-
-            first_name,
-
-            last_name,
-
-            email,
-
-            phone,
-
-            department,
-
-            designation,
-
-            salary,
-
-            joining_date,
-
-            status
-
-        ))
-
-        connection.commit()
-
-        connection.close()
-
+                ))
 
     @staticmethod
     def update(
-
         id,
-
         first_name,
-
         last_name,
-
         email,
-
         phone,
-
         department,
-
         designation,
-
         salary,
-
         joining_date,
-
         status
-
     ):
 
-        connection = get_db_connection()
+        with get_connection() as connection:
 
-        cursor = connection.cursor()
+            with connection.cursor() as cursor:
 
-        cursor.execute("""
+                cursor.execute("""
 
-            UPDATE employees
+                    UPDATE employees
 
-            SET
+                    SET
 
-                first_name=?,
+                        first_name=%s,
+                        last_name=%s,
+                        email=%s,
+                        phone=%s,
+                        department=%s,
+                        designation=%s,
+                        salary=%s,
+                        joining_date=%s,
+                        status=%s
 
-                last_name=?,
+                    WHERE id=%s
 
-                email=?,
+                """, (
 
-                phone=?,
+                    first_name,
+                    last_name,
+                    email,
+                    phone,
+                    department,
+                    designation,
+                    salary,
+                    joining_date,
+                    status,
+                    id
 
-                department=?,
-
-                designation=?,
-
-                salary=?,
-
-                joining_date=?,
-
-                status=?
-
-            WHERE id=?
-
-        """,(
-
-            first_name,
-
-            last_name,
-
-            email,
-
-            phone,
-
-            department,
-
-            designation,
-
-            salary,
-
-            joining_date,
-
-            status,
-
-            id
-
-        ))
-
-        connection.commit()
-
-        connection.close()
-
+                ))
 
     @staticmethod
     def delete(id):
 
-        connection = get_db_connection()
+        with get_connection() as connection:
 
-        cursor = connection.cursor()
+            with connection.cursor() as cursor:
 
-        cursor.execute("""
+                cursor.execute("""
 
-            DELETE FROM employees
+                    DELETE
+                    FROM employees
+                    WHERE id=%s
 
-            WHERE id=?
-
-        """,(id,))
-
-        connection.commit()
-
-        connection.close()
+                """, (id,))
 
     @staticmethod
     def get_last_employee():
 
-        connection = get_db_connection()
+        with get_connection() as connection:
 
-        cursor = connection.cursor()
+            with connection.cursor() as cursor:
 
-        cursor.execute("""
+                cursor.execute("""
 
-            SELECT employee_id
+                    SELECT employee_id
 
-            FROM employees
+                    FROM employees
 
-            ORDER BY id DESC
+                    ORDER BY id DESC
 
-            LIMIT 1
+                    LIMIT 1
 
-        """)
+                """)
 
-        employee = cursor.fetchone()
+                return cursor.fetchone()
 
-        connection.close()
-
-        return employee
-    
     @staticmethod
     def email_exists(email):
 
-        connection = get_db_connection()
+        with get_connection() as connection:
 
-        cursor = connection.cursor()
+            with connection.cursor() as cursor:
 
-        cursor.execute("""
+                cursor.execute("""
 
-            SELECT *
+                    SELECT *
 
-            FROM employees
+                    FROM employees
 
-            WHERE email=?
+                    WHERE email=%s
 
-        """,(email,))
+                """, (email,))
 
-        employee = cursor.fetchone()
+                return cursor.fetchone()
 
-        connection.close()
-
-        return employee
-    
     @staticmethod
     def email_exists_for_other(email, employee_id):
 
-        connection = get_db_connection()
+        with get_connection() as connection:
 
-        cursor = connection.cursor()
+            with connection.cursor() as cursor:
 
-        cursor.execute("""
-            SELECT *
-            FROM employees
-            WHERE email = ?
-            AND id != ?
-        """, (email, employee_id))
+                cursor.execute("""
 
-        employee = cursor.fetchone()
+                    SELECT *
 
-        connection.close()
+                    FROM employees
 
-        return employee
-    
+                    WHERE email=%s
+
+                    AND id!=%s
+
+                """, (
+
+                    email,
+                    employee_id
+
+                ))
+
+                return cursor.fetchone()
+
     @staticmethod
     def search(search_term):
 
-        connection = get_db_connection()
-
-        cursor = connection.cursor()
-
         query = f"%{search_term}%"
 
-        cursor.execute("""
-            SELECT *
-            FROM employees
-            WHERE employee_id LIKE ?
-            OR first_name LIKE ?
-            OR last_name LIKE ?
-            OR email LIKE ?
-            OR department LIKE ?
-            OR designation LIKE ?
-            ORDER BY employee_id
-        """, (
-            query,
-            query,
-            query,
-            query,
-            query,
-            query
-        ))
+        with get_connection() as connection:
 
-        employees = cursor.fetchall()
+            with connection.cursor() as cursor:
 
-        connection.close()
+                cursor.execute("""
 
-        return employees
+                    SELECT *
+
+                    FROM employees
+
+                    WHERE employee_id ILIKE %s
+                    OR first_name ILIKE %s
+                    OR last_name ILIKE %s
+                    OR email ILIKE %s
+                    OR department ILIKE %s
+                    OR designation ILIKE %s
+
+                    ORDER BY employee_id
+
+                """, (
+
+                    query,
+                    query,
+                    query,
+                    query,
+                    query,
+                    query
+
+                ))
+
+                return cursor.fetchall()

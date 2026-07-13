@@ -1,4 +1,4 @@
-from database.database import get_db_connection
+from database.db import get_connection
 
 
 class User:
@@ -6,21 +6,17 @@ class User:
     @staticmethod
     def get_user(username):
 
-        connection = get_db_connection()
+        with get_connection() as connection:
 
-        cursor = connection.cursor()
+            with connection.cursor() as cursor:
 
-        cursor.execute(
-            """
-            SELECT *
-            FROM users
-            WHERE username = ?
-            """,
-            (username,)
-        )
+                cursor.execute(
+                    """
+                    SELECT *
+                    FROM users
+                    WHERE username=%s
+                    """,
+                    (username,)
+                )
 
-        user = cursor.fetchone()
-
-        connection.close()
-
-        return user
+                return cursor.fetchone()
