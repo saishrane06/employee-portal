@@ -24,10 +24,6 @@ RUN chown -R appuser:appgroup /app
 # Switch user
 USER appuser
 
-ENV SECRET_KEY=docker-secret-key
-ENV DEBUG=True
-ENV DATABASE_NAME=employee.db
-
 EXPOSE 5000
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
