@@ -1,5 +1,5 @@
 from flask import Flask
-
+from flask import render_template
 from config import Config
 
 from routes.auth import auth
@@ -13,6 +13,9 @@ import sys
 app = Flask(__name__)
 
 app.config.from_object(Config)
+
+Config.validate()
+
 app.secret_key = app.config["SECRET_KEY"]
 app.register_blueprint(auth)
 app.register_blueprint(employee)
@@ -31,6 +34,15 @@ logging.info("======================================")
 logging.info("Employee Portal Starting...")
 logging.info("Application initialized successfully")
 logging.info("======================================")
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template("404.html"), 404
+
+
+@app.errorhandler(500)
+def server_error(error):
+    return render_template("500.html"), 500
 
 if __name__ == "__main__":
     app.run(

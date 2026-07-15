@@ -136,3 +136,35 @@ Logs can be viewed using:
 ```bash
 docker compose logs -f employee-app
 ```
+
+# Sprint 4 Features
+
+- Docker Compose
+- PostgreSQL
+- Automatic Database Initialization
+- Docker Volumes
+- Health Checks
+- Readiness Endpoint
+- Production Logging
+- Environment Validation
+- Custom Error Pages
+
+## Project Architecture
+
+Browser
+
+↓
+
+Flask
+
+↓
+
+PostgreSQL
+
+↓
+
+Docker Compose
+
+↓
+
+Persistent Volume
