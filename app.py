@@ -5,6 +5,7 @@ from config import Config
 from routes.auth import auth
 
 from routes.employee import employee
+from routes.health import health
 import logging
 import os
 
@@ -14,6 +15,7 @@ app.config.from_object(Config)
 app.secret_key = app.config["SECRET_KEY"]
 app.register_blueprint(auth)
 app.register_blueprint(employee)
+app.register_blueprint(health)
 os.makedirs("logs", exist_ok=True)
 logging.basicConfig(
     filename=app.config["LOG_FILE"],
