@@ -100,3 +100,39 @@ Employee CRUD Module
 - Terraform
 - Prometheus
 - Grafana
+
+## Database Initialization
+
+The PostgreSQL database is automatically initialized when the containers are started for the first time.
+
+Initialization scripts:
+
+- `database/init.sql` → Creates tables
+- `database/seed.sql` → Creates the default administrator
+
+Default credentials:
+
+Username: admin
+
+Password: Admin@123
+
+## Health Monitoring
+
+The application exposes production-style monitoring endpoints.
+
+| Endpoint | Purpose |
+|----------|---------|
+| /health | Application + Database health |
+| /ready | Readiness probe |
+
+Docker uses `/health` for automatic container health monitoring.
+
+## Logging
+
+The application uses structured logging and writes logs to standard output.
+
+Logs can be viewed using:
+
+```bash
+docker compose logs -f employee-app
+```

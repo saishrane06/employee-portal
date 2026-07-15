@@ -7,6 +7,7 @@ from flask import (
     request,
     flash
 )
+import logging
 
 from models.employee_model import Employee
 from flask import request, flash
@@ -125,6 +126,10 @@ def add_employee():
 
         )
 
+        logging.info(
+            f"Employee '{employee_id}' added successfully."
+        )
+
         return redirect(
 
             url_for("employee.employee_list")
@@ -204,6 +209,10 @@ def edit_employee(id):
             "success"
         )
 
+        logging.info(
+            f"Employee ID {id} updated."
+        )
+
         return redirect(
             url_for("employee.employee_list")
         )
@@ -237,6 +246,10 @@ def delete_employee(id):
     flash(
         f"Employee '{employee_data['first_name']} {employee_data['last_name']}' deleted successfully.",
         "success"
+    )
+
+    logging.warning(
+        f"Employee ID {id} deleted."
     )
 
     return redirect(
