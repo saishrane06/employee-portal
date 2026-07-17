@@ -168,3 +168,9 @@ Docker Compose
 ↓
 
 Persistent Volume
+
+## Docker Image
+
+```bash
+docker pull <dockerhub-username>/employee-portal:latest
+```
