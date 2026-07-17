@@ -1,0 +1,38 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docker:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker Image
+        run: |
+          docker build -t saishrane/employee-portal:latest .
+          docker tag saishrane/employee-portal:latest saishrane/employee-portal:${{ github.sha }}
+
+      - name: Push Latest
+        run: |
+          docker push saishrane/employee-portal:latest
+
+      - name: Push Commit Image
+        run: |
+          docker push saishrane/employee-portal:${{ github.sha }}
