@@ -11,6 +11,7 @@ services:
     restart: unless-stopped
 
     environment:
+      FLASK_CONFIG: docker
       POSTGRES_DB: employee_db
       POSTGRES_USER: employee_user
       POSTGRES_PASSWORD: employee_password
