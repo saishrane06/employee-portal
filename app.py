@@ -11,16 +11,17 @@ def create_app():
 
     app = Flask(__name__)
 
+    # Load configuration based on FLASK_CONFIG
     app.config.from_object(Config)
-
-    Config.validate()
 
     app.secret_key = app.config["SECRET_KEY"]
 
+    # Register Blueprints
     app.register_blueprint(auth)
     app.register_blueprint(employee)
     app.register_blueprint(health)
 
+    # Configure Logging
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s | %(levelname)s | %(message)s",
@@ -29,6 +30,7 @@ def create_app():
         ]
     )
 
+    # Error Handlers
     @app.errorhandler(404)
     def not_found(error):
         return render_template("404.html"), 404
@@ -42,5 +44,10 @@ def create_app():
 
 app = create_app()
 
+
 if __name__ == "__main__":
-    app.run(debug=app.config["DEBUG"])
+    app.run(
+        host="0.0.0.0",
+        port=5000,
+        debug=app.config["DEBUG"]
+    )
