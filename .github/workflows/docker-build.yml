@@ -1,40 +1,83 @@
-name: Build, Lint and Push Docker Image
+name: CI Pipeline
 
 on:
   push:
     branches:
       - main
-
+      - feature/**
   pull_request:
     branches:
       - main
 
 jobs:
-  build:
+  test-build:
 
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:16
+
+        env:
+          POSTGRES_DB: employee_db
+          POSTGRES_USER: employee_user
+          POSTGRES_PASSWORD: employee_password
+
+        ports:
+          - 5432:5432
+
+        options: >-
+          --health-cmd="pg_isready -U employee_user"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      SECRET_KEY: test-secret
+
+      DEBUG: True
+
+      DB_HOST: localhost
+
+      DB_PORT: 5432
+
+      DB_NAME: employee_db
+
+      DB_USER: employee_user
+
+      DB_PASSWORD: employee_password
+
     steps:
 
-      - name: Checkout Repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run Flake8
+      - name: Initialize database
         run: |
-          flake8 .
+          PGPASSWORD=employee_password psql \
+            -h localhost \
+            -U employee_user \
+            -d employee_db \
+            -f database/init.sql
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+          PGPASSWORD=employee_password psql \
+            -h localhost \
+            -U employee_user \
+            -d employee_db \
+            -f database/seed.sql
+
+      - name: Run Tests
+        run: pytest
+
+      - name: Run Flake8
+        run: flake8 .
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3
@@ -45,10 +88,3 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t saishrane/employee-portal:latest .
-          docker tag saishrane/employee-portal:latest saishrane/employee-portal:${{ github.sha }}
-
-      - name: Push Latest Image
-        run: docker push saishrane/employee-portal:latest
-
-      - name: Push Commit SHA Image
-        run: docker push saishrane/employee-portal:${{ github.sha }}
