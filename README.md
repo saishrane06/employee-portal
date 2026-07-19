@@ -327,3 +327,13 @@ Flask
     ▼
 PostgreSQL
 ```
+
+## Static File Handling
+
+Static assets are served directly by Nginx.
+
+Benefits:
+
+- Faster page loads
+- Browser caching
+- Reduced application server load
