@@ -298,6 +298,7 @@ docker image prune
 - Docker Compose
 - GitHub Actions
 
+
 ## Project Progress
 
 | Sprint | Status |
@@ -308,3 +309,21 @@ docker image prune
 | Sprint 4 - PostgreSQL | ✅ Completed |
 | Sprint 5 - CI/CD | ✅ Completed |
 | Sprint 6 - Production Deployment | 🚧 In Progress |
+
+## Production Architecture
+
+```text
+Browser
+    │
+    ▼
+Nginx
+    │
+    ▼
+Gunicorn
+    │
+    ▼
+Flask
+    │
+    ▼
+PostgreSQL
+```
