@@ -26,7 +26,13 @@ USER appuser
 
 EXPOSE 5000
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
-CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"
+#HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+#CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:5000/health')"
 
-CMD ["python","app.py"]
+HEALTHCHECK --interval=30s --timeout=5s --start-period=20s --retries=3 \
+CMD python -c "import urllib.request,sys; \
+sys.exit(0) if urllib.request.urlopen('http://localhost:5000/health').status==200 else sys.exit(1)"
+
+#CMD ["python","app.py"]
+#CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "app:app"]
+CMD ["gunicorn", "-c", "gunicorn.conf.py", "app:app"]
