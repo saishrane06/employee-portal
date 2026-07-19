@@ -8,10 +8,10 @@ timeout = 60
 
 keepalive = 5
 
-worker_class = "sync"
-
 accesslog = "-"
 
 errorlog = "-"
 
 loglevel = "info"
+
+capture_output = True
